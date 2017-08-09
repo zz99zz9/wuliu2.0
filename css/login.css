@@ -1,0 +1,6 @@
+@charset "gb2312";
+/* CSS Document */
+
+#win{height:243px;width:609px;left:50%;top:50%;position:absolute;margin-left:-305px;margin-top:-122px;border:1px solid #000;}
+#loginpic{width:609px;height:205px;border-bottom:1px solid #000;background:url(../images/login.gif);}
+#loginfrom{width:609px;height:37px;background:url(../images/loginbg.jpg);}

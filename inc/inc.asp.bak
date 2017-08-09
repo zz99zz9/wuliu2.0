@@ -1,0 +1,255 @@
+<%
+'****************************************
+'验证项目经理是否存在
+'call Check_Sup_name()
+'****************************************
+sub Check_Sup_name()
+sql="select Sup_name from Supervisor where Sup_name='"&Sup_name&"'"  ' 查询数据库中是否有重复记录
+
+set rs = conn.execute(sql)
+
+If not(rs.Eof And rs.Bof) Then
+ Response.Write ("<script language='javascript'>alert('“"&Sup_name&"”此用户名已经存在，请修改重试');history.back(-1);</script>") ' 返回结果并进行编码转义
+response.end()
+end if
+end sub
+
+'****************************************
+'客户id转换客户名称缩写
+'call Show_customer_name()
+'****************************************
+Sub Show_customer_name(countt)
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+oRs.Open "select * from [Customer] where Cus_id="&countt,conn,1,1
+If Not oRs.eof Then
+Content=oRs("Cus_name")
+Else
+Content="无效类别"
+End if
+oRs.close
+set oRs=Nothing
+Response.write Content
+End sub
+'****************************************
+'项目id转换项目名称
+'call Show_Subject_name()
+'****************************************
+Sub Show_Subject_name(countt)
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+oRs.Open "select * from [Subject] where Sub_id="&countt,conn,1,1
+If Not oRs.eof Then
+Content=oRs("Sub_name")
+Else
+Content="无效类别"
+End if
+oRs.close
+set oRs=Nothing
+Response.write Content
+End sub
+'****************************************
+'收入id转换收入名称
+'call Show_Revenue_name()
+'****************************************
+Sub Show_Income_name(countt)
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+oRs.Open "select * from [Income] where Inc_id="&countt,conn,1,1
+If Not oRs.eof Then
+Content=oRs("Inc_name")
+Else
+Content="无效类别"
+End if
+oRs.close
+set oRs=Nothing
+Response.write Content
+End sub
+'****************************************
+'操作员id转换名称
+'call Show_operator_name()
+'****************************************
+Sub Show_operator_name(countt)
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+oRs.Open "select * from [operator] where Ope_id="&countt,conn,1,1
+If Not oRs.eof Then
+Content=oRs("Ope_name")
+Else
+Content="无效类别"
+End if
+oRs.close
+set oRs=Nothing
+Response.write Content
+End sub
+'****************************************
+'项目经理id转换名称
+'call Show_Supervisor_name()
+'****************************************
+Sub Show_Supervisor_name(countt)
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+oRs.Open "select * from [Supervisor] where Sup_id="&countt,conn,1,1
+If Not oRs.eof Then
+Content=oRs("Sup_name")
+Else
+Content="无效类别"
+End if
+oRs.close
+set oRs=Nothing
+Response.write Content
+End sub
+'****************************************
+'项目id转换应收款汇总
+'call Revenue_sum1()
+'****************************************
+function Revenue_sum1(countt)
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+sql="select sum(Rev_amount1) as sum_amount from [Revenue] where Rev_Exhid="&countt
+'response.write sql
+oRs.Open sql,conn,1,1
+If Not oRs.eof Then
+	
+Content=FormatNumber(oRs("sum_amount"),2)
+Else
+Content="0"
+End if
+oRs.close
+set oRs=Nothing
+Response.write Content
+Revenue_sum11=Content
+end function
+'****************************************
+'项目id转换已收款汇总
+'call Revenue_sum2()
+'****************************************
+function Revenue_sum2(countt)
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+oRs.Open "select sum(Rev_amount2) as sum_amount from [Revenue] where Rev_Exhid="&countt,conn,1,1
+If Not oRs.eof Then
+Content=int(oRs("sum_amount"))
+Else
+Content="0"
+End if
+oRs.close
+set oRs=Nothing
+Response.write Content
+Revenue_sum22=Content
+End function
+'****************************************
+'项目id转换已付款汇总
+'call Expense_sum1()
+'****************************************
+function Expense_sum1(countt)
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+sql="select sum(Exp_amount1) as sum_amount from [Expense] where Exp_Exhid="&countt
+'response.write sql
+oRs.Open sql,conn,1,1
+If Not oRs.eof Then
+Content=int(trim(oRs("sum_amount")))
+Else
+Content=0
+End if
+if Content="" then
+Content=0
+end if
+oRs.close
+set oRs=Nothing
+Response.write Content
+Expense_sum11=Content
+End function
+'****************************************
+'项目id转换已付款汇总
+'call Expense_sum2()
+'****************************************
+function Expense_sum2(countt)
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+sql="select sum(Exp_amount2) as sum_amount from [Expense] where Exp_Exhid="&countt
+'response.write sql
+oRs.Open sql,conn,1,1
+If Not oRs.eof Then
+Content=int(trim(oRs("sum_amount")))
+Else
+Content=0
+End if
+if Content="" then
+Content=0
+end if
+oRs.close
+set oRs=Nothing
+Response.write Content
+Expense_sum22=Content
+End function
+'****************************************
+'预计利润（应收-应付）
+'call yjlr()
+'****************************************
+function yjlr(countt)
+set oRs=Server.CreateObject("ADODB.Recordset")
+oRs.Open "select sum(Rev_amount1) as sum_amount from [Revenue] where Rev_Exhid="&countt,conn,1,1
+
+ys=int(oRs("sum_amount"))
+
+oRs.close
+set oRs=Nothing
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+oRs.Open "select sum(Exp_amount1) as sum_amount from [Expense] where Exp_Exhid="&countt,conn,1,1
+
+yf=int(oRs("sum_amount"))
+
+oRs.close
+set oRs=Nothing
+Response.write int(ys)-int(yf)
+yjlrhz=int(ys)-int(yf)
+End function
+'****************************************
+'目前利润（已收-已付）
+'call mqlr()
+'****************************************
+function mqlr(countt)
+set oRs=Server.CreateObject("ADODB.Recordset")
+oRs.Open "select sum(Rev_amount2) as sum_amount from [Revenue] where Rev_Exhid="&countt,conn,1,1
+
+ys=int(oRs("sum_amount"))
+oRs.close
+set oRs=Nothing
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+sql="select sum(Exp_amount2) as sum_amount from [Expense] where Exp_Exhid="&countt
+'response.write sql
+oRs.Open sql,conn,1,1
+
+yf=int(oRs("sum_amount"))
+
+oRs.close
+set oRs=Nothing
+Response.write int(ys)-int(yf)
+mqlrhz=int(ys)-int(yf)
+End function
+'****************************************
+'未收款（已收-已收）
+'call mqlr()
+'****************************************
+function wsk(countt)
+set oRs=Server.CreateObject("ADODB.Recordset")
+oRs.Open "select sum(Rev_amount1) as sum_amount from [Revenue] where Rev_Exhid="&countt,conn,1,1
+
+ys=int(oRs("sum_amount"))
+oRs.close
+set oRs=Nothing
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+oRs.Open "select sum(Rev_amount2) as sum_amount from [Revenue] where Rev_Exhid="&countt,conn,1,1
+
+ys2=int(oRs("sum_amount"))
+oRs.close
+set oRs=Nothing
+Response.write int(ys)-int(ys2)
+wskhz=int(ys)-int(ys2)
+End function
+%>
