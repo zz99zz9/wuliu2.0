@@ -25,7 +25,7 @@ function checkform()
 			//document.form1.title.focus();
 			return false;
 		}
-		else if(document.wuliuform.S_year.value=document.wuliuform.E_year.value && document.wuliuform.S_moon.value>document.wuliuform.E_moon.value)
+		else if(document.wuliuform.S_year.value=document.wuliuform.E_year.value )//&& document.wuliuform.S_moon.value>document.wuliuform.E_moon.value
 		{alert("起始月份不能超过终止月份！");
 		return false;
 			}else{
@@ -111,8 +111,11 @@ function checkform()
     </tr>
     <%  
 '开始分页
-
 sql1="where Exh_year>="&S_year&" and Exh_moon>="&S_moon&" and Exh_year<="&E_year&" and Exh_moon<="&E_moon&""
+  if E_year>S_year then
+sql1="where (Exh_year="&S_year&" and Exh_moon>="&S_moon&") or (Exh_year="&E_year&" and Exh_moon<="&E_moon&")"
+  end if
+'sql1="where Exh_year>="&S_year&" and Exh_moon>="&S_moon&" and Exh_year<="&E_year&" and Exh_moon<="&E_moon&""
 '打开数据库  
 set rs=server.createobject("adodb.recordset")
 sql="select * from Exhibition "&sql1&" order by Exh_id desc"
