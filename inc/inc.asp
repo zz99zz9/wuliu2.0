@@ -284,4 +284,89 @@ Response.write FormatNumber(ys-ys2)
 end if
 wskhz=int(ys)-int(ys2)
 End function
+'****************************************
+'项目类别id转换类别名称
+'call Show_class_name()
+'****************************************
+Sub Show_class_name(countt)
+
+set oRs=Server.CreateObject("ADODB.Recordset")
+
+oRs.Open "select * from Class where cla_id="&countt,conn,1,1
+If Not oRs.eof Then
+Content=oRs("cla_name")
+Else
+Content="无效类别"
+End if
+oRs.close
+set oRs=Nothing
+Response.write Content
+End sub
+'****************************************
+'展会id转换展会主管名称
+'call Show_exh2mas_name()
+'****************************************
+Sub Show_exh2mas_name(countt)
+
+if trim(countt)<>"" then
+set oRs=Server.CreateObject("ADODB.Recordset")
+
+oRs.Open "select * from Exhibition where exh_id="&countt,conn,1,1
+If Not oRs.eof Then
+Content=oRs("Exh_supid")
+Else
+Content="无效类别"
+End if
+oRs.close
+oRs.Open "select * from Supervisor where Sup_id="&Content,conn,1,1
+If Not oRs.eof Then
+Content=oRs("sup_name")
+Else
+Content="无效类别"
+End if
+oRs.close
+set oRs=Nothing
+end if
+Response.write Content
+End sub
+'****************************************
+'展会id转换展会代码（展会编号）
+'call Show_exh_code()
+'****************************************
+Sub Show_exh_code(countt)
+if trim(countt)<>"" then
+set oRs=Server.CreateObject("ADODB.Recordset")
+
+ oRs.Open "select * from Exhibition where exh_id="&countt,conn,1,1
+ If Not oRs.eof Then
+ Content=oRs("Exh_code")
+ Else
+ Content="无效类别"
+ End if
+
+oRs.close
+set oRs=Nothing
+end if
+Response.write Content
+End sub
+'****************************************
+'展会id转换展会名称
+'call Show_exh_name()
+'****************************************
+Sub Show_exh_name(countt)
+if trim(countt)<>"" then
+set oRs=Server.CreateObject("ADODB.Recordset")
+
+oRs.Open "select * from Exhibition where exh_id="&countt,conn,1,1
+If Not oRs.eof Then
+Content=oRs("Exh_name")
+Else
+Content="无效类别"
+End if
+
+oRs.close
+set oRs=Nothing
+end if
+Response.write Content
+End sub
 %>

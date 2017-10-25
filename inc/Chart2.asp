@@ -40,7 +40,7 @@ function checkform()
     
     <td width="60" align="center"><a href="#" onClick="javascript:HiddenDiv('sradd2')"><img src="images/l4.gif" width="36" height="26" /></a></td>
     <td width="5"><img src="images/lll.gif" width="2" height="37" /></td>-->
-    <td width="60" align="center"><a href="Out_Chart.asp?<%=urlload%>" target="_blank"><img src="images/l3.gif" width="36" height="33" /></a></td>
+    <td width="60" align="center"><a href="Out_Chart2.asp?<%=urlload%>" target="_blank"><img src="images/l3.gif" width="36" height="33" /></a></td>
     <td width="5"><img src="images/lll.gif" width="2" height="37" /></td>
     <td height="60"> <form id="wuliuform" name="wuliuform" method="post" action="" onSubmit="return checkform();">
     　从　<select name="S_year" id="S_year">
@@ -95,15 +95,18 @@ function checkform()
 
 
 <div>
-  <table width="980" border="0" cellspacing="1" cellpadding="0" class="datalist">
+  <table width="1080" border="0" cellspacing="1" cellpadding="0" class="datalist">
     <tr>
-     <!-- <th>时间</th>-->
+      <!--<th>时间</th>-->
       <th>项目编号</th>
       <th>展会名称</th>
+      <th>类别</th>
+      <th>唛头</th>
       <th>项目主管</th>
+      <th>体积</th>
+      <th>公斤</th>
       <th>应收</th>
       <th>已收</th>
-      <th>应付</th>
       <th>已付</th>
       <th>预计利润</th>
       <th>目前利润</th>
@@ -157,11 +160,17 @@ do while not rs.eof
     <tr onmousemove="changeTrColor(this)">
      <!-- <td><%=rs("Exh_year")%>-<%=rs("Exh_moon")%></td>-->
       <td><%=rs("Exh_Code")%></td>
-      <td><%=rs("Exh_name")%></td>
+       <td><%=rs("Exh_name")%></td>
+      <td><%call Show_class_name(rs("Exh_class"))%></td>
+      <td><%=trim(rs("Exh_mark"))%></td>
       <td><%call Show_Supervisor_name(int(rs("Exh_Supid")))%></td>
-      <td><%call Revenue_sum1(int(rs("Exh_id")))%></td>
+      <td><%=rs("Exh_volume")%></td>
+  
+     <td><%=rs("Exh_kg")%></td>
+     
+    <td><%call Revenue_sum1(int(rs("Exh_id")))%></td>
 <td><%call Revenue_sum2(int(rs("Exh_id")))%></td>
-<td><%call Expense_sum1(int(rs("Exh_id")))%></td>
+<!--<td><%call Expense_sum1(int(rs("Exh_id")))%></td>-->
 <td><%call Expense_sum2(int(rs("Exh_id")))%></td>
       <td><%call yjlr(int(rs("Exh_id")))%></td>
      <td><%call mqlr(int(rs("Exh_id")))%></td>
@@ -170,7 +179,7 @@ do while not rs.eof
     <%
 	 Revenue_sum111=Revenue_sum111+int(Revenue_sum11)
 	 Revenue_sum222=Revenue_sum222+int(Revenue_sum22)
-	 Expense_sum111=Expense_sum111+int(Expense_sum11)
+	 Expense_sum111=Expense_sum111+int(Expense_sum11) '应付
 	 Expense_sum222=Expense_sum222+int(Expense_sum22)
 	 yjlrhz11=yjlrhz11+int(yjlrhz)
 	 mqlr11=mqlr11+int(mqlrhz)
@@ -190,7 +199,7 @@ set rs=nothing
       <td></td>
       <td><%=Revenue_sum111%></td>
 <td><%=Revenue_sum222%></td>
-<td><%=Expense_sum111%></td>
+
 <td><%=Expense_sum222%></td>
       <td><%=yjlrhz11%></td>
      <td><%=mqlr11%></td>
