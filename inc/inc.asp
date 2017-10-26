@@ -350,6 +350,26 @@ end if
 Response.write Content
 End sub
 '****************************************
+'展会id转换参展商数
+'call Show_exh_count()
+'****************************************
+Sub Show_exh_count(countt)
+if trim(countt)<>"" then
+set oRs=Server.CreateObject("ADODB.Recordset")
+
+ oRs.Open "select count(*) as cou from Revenue where Rev_exhid="&countt,conn,1,1
+ If Not oRs.eof Then
+ Content=oRs("cou")
+ Else
+ Content="无效类别"
+ End if
+
+oRs.close
+set oRs=Nothing
+end if
+Response.write Content
+End sub
+'****************************************
 '展会id转换展会名称
 'call Show_exh_name()
 '****************************************

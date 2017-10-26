@@ -1,20 +1,48 @@
-      	<div id="mb"><table width="100%" border="0" cellspacing="0" cellpadding="0" >
-  <tr>
-    <td width="6"><img src="images/ll.gif" width="6" height="37" /></td>
-    <!--<td width="60" align="center"><a href="#" onClick="javascript:ShowDiv('sradd2')"><img src="images/l1.gif" width="36" height="26" /></a></td>
-    <td width="5"><img src="images/lll.gif" width="2" height="37" /></td>
-    
-    <td width="60" align="center"><a href="#" onClick="javascript:HiddenDiv('sradd2')"><img src="images/l4.gif" width="36" height="26" /></a></td>
-    <td width="5"><img src="images/lll.gif" width="2" height="37" /></td>-->
-    <td width="60" align="center"><a href="Out_cargo_volume.asp?<%=urlload%>" target="_blank"><img src="images/l3.gif" width="36" height="33" /></a></td>
-    <td height="60">&nbsp;</td>
-    </tr>
-</table>
-</div>
+<%
+Exh_code=request.QueryString("Exh_code")
+ECount=request.QueryString("ECount")
+Exh_id=request.QueryString("Exh_id")
+%>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>支出费用表</title>
+<!--#include virtual="inc/conn.asp"-->
+<!--#include virtual="inc/inc.asp"-->
+<style type="text/css">
+table {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+	height:35px;
+	font-size:12px;
+}
+table td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+	height:35px;
+	font-size:12px;
+}
+</style>
+</head>
 
-
-<div>
-  <table width="980" border="0" cellspacing="1" cellpadding="0" class="datalist">
+<body>
+<%response.ContentType ="application/vnd.ms-excel"%> 
+<%Response.AddHeader "content-disposition","attachment;filename="&Exh_code&"支出费用表.xls"%>
+ <table width="980" border="0" cellspacing="1" cellpadding="0" class="datalist">
     <tr>
       <th>项目编号</th>
       <th>展会名称</th>
@@ -120,13 +148,5 @@ end if
 
     </tr>
   </table>
-  <script type="text/javascript">
-function changeTrColor(obj){ 
-    var _table=obj.parentNode;
-    for (var i=0;i<_table.rows.length;i++){
-        _table.rows[i].style.backgroundColor="";
-    }    
-    obj.style.backgroundColor="#FEE8EA";
-}
-</script>
-</div>
+</body>
+</html>
