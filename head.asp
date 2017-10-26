@@ -23,7 +23,7 @@ end if
 <%if request.cookies("wuliuv")=0 then%>
 <li class="b b6" onclick="javascript:location.href='Index.asp'"><span>交易管理</span></li>
 <li class="b b1" onclick="javascript:location.href='Create_Exhibition.asp'"><span>创建展会</span></li>
-<li class="b b7" onclick="javascript:location.href='Chart.asp'"><span>统计报表</span></li>
+<li class="b b7" onclick="javascript:location.href='Chartlist.asp'"><span>统计报表</span></li>
 <li class="b b2" onclick="javascript:location.href='Operator.asp'"><span>操作员设置</span></li>
 <li class="b b3" onclick="javascript:location.href='Operator_v.asp'"><span>访问权限设置</span></li>
 <li class="b b4" onclick="javascript:location.href='Company.asp'"><span>预设管理</span></li><%end if%>

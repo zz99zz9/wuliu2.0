@@ -222,7 +222,7 @@ set rs=nothing
         </tr>
         <tr>
           <td height="30" align="right">¹«¡¡¡¡½ï</td>
-          <td><input type="text" name="Exh_kg" id="Exh_kg" value="<%=rs1("Exh_kg")%>"/></td>
+          <td><input type="text" name="Exh_kg" id="Exh_kg" value="<%=trim(rs1("Exh_kg"))%>"/></td>
           <td><p></p></td>
         </tr>
         <tr>

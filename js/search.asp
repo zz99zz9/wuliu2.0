@@ -4,8 +4,8 @@
 Response.ContentType="text/xml"
 search=Trim(request("search"))
 
-set rs=server.CreateObject("adodb.recordset")
-sql="select top 15 [Cus_name] from Customer where [Cus_name] like '"&search&"%' order by Cus_OrderId desc,Cus_id"
+ set rs=server.CreateObject("adodb.recordset")
+sql="select top 10 [Cus_name] from Customer where [Cus_name] like '"&search&"%' order by Cus_OrderId desc,Cus_id"
 
 rs.open sql,conn,1,1
 
