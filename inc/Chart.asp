@@ -111,8 +111,11 @@ function checkform()
     </tr>
     <%  
 '开始分页
-
 sql1="where Exh_year>="&S_year&" and Exh_moon>="&S_moon&" and Exh_year<="&E_year&" and Exh_moon<="&E_moon&""
+  if E_year>S_year then
+sql1="where (Exh_year="&S_year&" and Exh_moon>="&S_moon&") or (Exh_year="&E_year&" and Exh_moon<="&E_moon&")"
+  end if
+'sql1="where Exh_year>="&S_year&" and Exh_moon>="&S_moon&" and Exh_year<="&E_year&" and Exh_moon<="&E_moon&""
 '打开数据库  
 set rs=server.createobject("adodb.recordset")
 sql="select * from Exhibition "&sql1&" order by Exh_id desc"
