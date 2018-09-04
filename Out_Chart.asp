@@ -47,6 +47,7 @@ table td {
       <th height="30" colspan="9"><%=request.cookies("S_year")%>年<%=request.cookies("S_moon")%>月-<%=request.cookies("E_year")%>年<%=request.cookies("E_moon")%>月 业务一览表</th>
     </tr>
     <tr>
+	  <th>ID</th>
       <th>项目编号</th>
       <th>展会名称</th>
       <th>项目主管</th>
@@ -59,12 +60,16 @@ table td {
     </tr>
     <%  
 '开始分页
-
 sql1="where Exh_year>="&request.cookies("S_year")&" and Exh_moon>="&request.cookies("S_moon")&" and Exh_year<="&request.cookies("E_year")&" and Exh_moon<="&request.cookies("E_moon")&""
+if request.cookies("E_year")>request.cookies("S_year") then
+sql1="where (Exh_year="&request.cookies("S_year")&" and Exh_moon>="&request.cookies("S_moon")&") or (Exh_year="&request.cookies("E_year")&" and Exh_moon<="&request.cookies("E_moon")&")"
+end if
+'sql1="where Exh_year>="&request.cookies("S_year")&" and Exh_moon>="&request.cookies("S_moon")&" and Exh_year<="&request.cookies("E_year")&" and Exh_moon<="&request.cookies("E_moon")&""
+
 '打开数据库  
 set rs=server.createobject("adodb.recordset")
 sql="select * from Exhibition "&sql1&" order by Exh_id desc"
-rs.PageSize = 100 '这里设定每页显示的记录数
+rs.PageSize = 10000 '这里设定每页显示的记录数
 rs.CursorLocation = 3
 
 rs.open sql,conn,3,3
@@ -97,9 +102,12 @@ end if
 if not rs.eof then
 rs.AbsolutePage = intpage
 end if 
+i=0
 do while not rs.eof and count<rs.PageSize
+i=i+1
 %> 
     <tr onMouseMove="changeTrColor(this)">
+	<td><%=i%></td>
       <td><%=rs("Exh_Code")%></td>
       <td><%=rs("Exh_name")%></td>
       <td><%call Show_Supervisor_name(int(rs("Exh_Supid")))%></td>
