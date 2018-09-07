@@ -57,6 +57,7 @@ table td {
       <th>更改日期</th>
 
     </tr>
+    <% Server.ScriptTimeOut=950 %>
     <%  
 '开始分页
 
@@ -66,7 +67,7 @@ set rs=server.createobject("adodb.recordset")
 sql="select * from Expense where Exp_Exhid="&int(Exh_id)&" order by Exp_id desc"
 
 
-rs.PageSize = 200 '这里设定每页显示的记录数
+rs.PageSize = 10000 '这里设定每页显示的记录数
 rs.CursorLocation = 3
 
 rs.open sql,conn,3,3

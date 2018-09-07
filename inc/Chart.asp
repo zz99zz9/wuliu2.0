@@ -95,18 +95,22 @@ function checkform()
 
 
 <div>
+    <% Server.ScriptTimeOut=950 %>
   <%'开始分页
-  sql1="where Exh_year>="&S_year&" and Exh_moon>="&S_moon&" and Exh_year<="&E_year&" and Exh_moon<="&E_moon&""
-    if E_year>S_year then
+  if E_year-S_year=1 then
   sql1="where (Exh_year>="&S_year&" and Exh_moon>="&S_moon&") or (Exh_year<="&E_year&" and Exh_moon<="&E_moon&")"
-    end if
+  elseif E_year-S_year=2 then
+  sql1="where (Exh_year>="&S_year&" and Exh_moon>="&S_moon&") or (Exh_year<="&E_year&" and Exh_moon<="&E_moon&") or Exh_year=2017"
+  else
+   sql1="where Exh_year="&S_year&" and Exh_moon>="&S_moon&" and Exh_moon<="&E_moon&" "
+  end if
   'sql1="where Exh_year>="&S_year&" and Exh_moon>="&S_moon&" and Exh_year<="&E_year&" and Exh_moon<="&E_moon&""
   '打开数据库  
   set rs=server.createobject("adodb.recordset")
   sql="select * from Exhibition "&sql1&" order by Exh_id desc"
   rs.PageSize = 10000 '这里设定每页显示的记录数
   rs.CursorLocation = 3
-  
+
   rs.open sql,conn,3,3
   %>
 

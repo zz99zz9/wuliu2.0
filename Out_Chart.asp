@@ -57,15 +57,18 @@ table td {
       <th>预计利润</th>
       <th>目前利润</th>
       <th>未收款</th>
-    </tr>
+	</tr>
+	<% Server.ScriptTimeOut=950 %>
     <%  
 '开始分页
-sql1="where Exh_year>="&request.cookies("S_year")&" and Exh_moon>="&request.cookies("S_moon")&" and Exh_year<="&request.cookies("E_year")&" and Exh_moon<="&request.cookies("E_moon")&""
-if request.cookies("E_year")>request.cookies("S_year") then
-sql1="where (Exh_year="&request.cookies("S_year")&" and Exh_moon>="&request.cookies("S_moon")&") or (Exh_year="&request.cookies("E_year")&" and Exh_moon<="&request.cookies("E_moon")&")"
-end if
-'sql1="where Exh_year>="&request.cookies("S_year")&" and Exh_moon>="&request.cookies("S_moon")&" and Exh_year<="&request.cookies("E_year")&" and Exh_moon<="&request.cookies("E_moon")&""
 
+if request.cookies("E_year")-request.cookies("S_year")=1 then
+sql1="where (Exh_year>="&request.cookies("S_year")&" and Exh_moon>="&request.cookies("S_moon")&") or (Exh_year<="&request.cookies("E_year")&" and Exh_moon<="&request.cookies("E_moon")&")"
+elseif request.cookies("E_year")-request.cookies("S_year")=2 then
+sql1="where (Exh_year>="&request.cookies("S_year")&" and Exh_moon>="&request.cookies("S_moon")&") or (Exh_year<="&request.cookies("E_year")&" and Exh_moon<="&request.cookies("E_moon")&") or Exh_year=2017"
+else
+ sql1="where Exh_year="&request.cookies("S_year")&" and Exh_moon>="&request.cookies("S_moon")&" and Exh_moon<="&request.cookies("E_moon")&" "
+end if
 '打开数据库  
 set rs=server.createobject("adodb.recordset")
 sql="select * from Exhibition "&sql1&" order by Exh_id desc"

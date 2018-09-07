@@ -25,6 +25,7 @@
       <th>公斤</th>
 
     </tr>
+    <% Server.ScriptTimeOut=950 %>
     <%  
 '开始分页
 
@@ -32,7 +33,7 @@
 '打开数据库  
 set rs=server.createobject("adodb.recordset")
 sql="select * from Exhibition order by Exh_id desc"
-rs.PageSize = 100 '这里设定每页显示的记录数
+rs.PageSize = 10000 '这里设定每页显示的记录数
 rs.CursorLocation = 3
 
 rs.open sql,conn,3,3

@@ -51,7 +51,8 @@ table td {
       <th>已收</th>
       <th>欠款</th>
       <th>发票抬头</th>
-    </tr>
+	</tr>
+	<% Server.ScriptTimeOut=950 %>
     <%  
 '开始分页
 
@@ -59,7 +60,7 @@ table td {
 '打开数据库  
 set rs=server.createobject("adodb.recordset")
 sql="select * from Revenue where Rev_Exhid="&int(Exh_id)&"  order by Rev_id desc"
-rs.PageSize = 100 '这里设定每页显示的记录数
+rs.PageSize = 10000 '这里设定每页显示的记录数
 rs.CursorLocation = 3
 
 rs.open sql,conn,3,3
