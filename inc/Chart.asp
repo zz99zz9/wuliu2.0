@@ -2,8 +2,10 @@
 response.cookies("S_moon")=request("S_moon")
 response.cookies("E_year")=request("E_year")
 response.cookies("E_moon")=request("E_moon")
-
+skey=request("skey")
+if skey="1" then search="yes" else search="no" end if
 if timeClear="Clear" or request.cookies("S_moon")="" then
+skey=""
 response.cookies("S_year")=2016
 response.cookies("S_moon")=1
 response.cookies("E_year")=year(now())
@@ -15,7 +17,6 @@ E_year=request.cookies("E_year")
 E_moon=request.cookies("E_moon")%>
  <script language="javascript">
 function checkform()
-
 
 {
 
@@ -88,6 +89,7 @@ function checkform()
               <option value="11" <%if E_moon=11 then %>selected="selected"<%end if%>>11</option>
               <option value="12" <%if E_moon=12 then %>selected="selected"<%end if%>>12</option>
             </select>
+            <input type="hidden" name="skey" id="skey" value="1">
             <input type="submit" name="button" id="button" value="搜索" />　<a href="?<%=urlload%>&Riframe=4&time=Clear">查看全部</a></form></td>
     </tr>
 </table>
@@ -107,7 +109,11 @@ function checkform()
   'sql1="where Exh_year>="&S_year&" and Exh_moon>="&S_moon&" and Exh_year<="&E_year&" and Exh_moon<="&E_moon&""
   '打开数据库  
   set rs=server.createobject("adodb.recordset")
+  if search="yes" then
   sql="select * from Exhibition "&sql1&" order by Exh_id desc"
+  else
+  sql="select top 30 * from Exhibition order by Exh_id desc"
+  end if
   rs.PageSize = 10000 '这里设定每页显示的记录数
   rs.CursorLocation = 3
 

@@ -32,7 +32,7 @@
 
 '打开数据库  
 set rs=server.createobject("adodb.recordset")
-sql="select * from Exhibition order by Exh_id desc"
+sql="select top 30 * from Exhibition order by Exh_id desc"
 rs.PageSize = 10000 '这里设定每页显示的记录数
 rs.CursorLocation = 3
 
