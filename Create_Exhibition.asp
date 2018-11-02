@@ -14,6 +14,7 @@ Exh_mark=request("Exh_mark")
 Exh_year=request("Exh_year")
 Exh_moon=request("Exh_moon")
 Exh_f=request("Exh_f")
+w_time=Exh_year&"."&Exh_moon
 if Exh_f="" then Exh_f=0
 
 if act="add" then
@@ -45,7 +46,7 @@ if act="add" then
 	 news("Exh_moon")=Exh_moon
 	 news("Exh_favorites")=Exh_f
 	 news("Exh_addtime")=now()
-
+   news("w_time")=w_time
 	 news("Exh_OpeID")=request.cookies("wuliuid") '”√ªßid
      news.update
 	 news.close
