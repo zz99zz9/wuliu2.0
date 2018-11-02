@@ -62,12 +62,11 @@ table td {
     <%  
 '开始分页
 
-if request.cookies("E_year")-request.cookies("S_year")=1 then
-sql1="where (Exh_year>="&request.cookies("S_year")&" and Exh_moon>="&request.cookies("S_moon")&") or (Exh_year<="&request.cookies("E_year")&" and Exh_moon<="&request.cookies("E_moon")&")"
-elseif request.cookies("E_year")-request.cookies("S_year")=2 then
-sql1="where (Exh_year>="&request.cookies("S_year")&" and Exh_moon>="&request.cookies("S_moon")&") or (Exh_year<="&request.cookies("E_year")&" and Exh_moon<="&request.cookies("E_moon")&") or Exh_year=2017"
-else
- sql1="where Exh_year="&request.cookies("S_year")&" and Exh_moon>="&request.cookies("S_moon")&" and Exh_moon<="&request.cookies("E_moon")&" "
+s_time=FormatNumber(request.cookies("S_year")&"."&request.cookies("S_moon"),2,False,False,False)
+e_time=FormatNumber(request.cookies("E_year")&"."&request.cookies("E_moon"),2,False,False,False)
+sql1="where w_time>="&s_time&" and w_time<="&e_time&""
+if request.cookies("Sup_id")<>"0" then
+  sql1=sql1+" and Exh_Supid="&request.cookies("Sup_id")
 end if
 '打开数据库  
 set rs=server.createobject("adodb.recordset")

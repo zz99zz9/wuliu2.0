@@ -8,7 +8,7 @@
     <td width="5"><img src="images/lll.gif" width="2" height="37" /></td>-->
     <td width="60" align="center"><a href="Out_Chart.asp?<%=urlload%>" target="_blank"><img src="images/l3.gif" width="36" height="33" /></a></td>
     <td width="5"><img src="images/lll.gif" width="2" height="37" /></td>
-    <td height="60"><!--#include virtual="inc/searchbar.asp"--></td>
+    <td height="60"><!--#include virtual="inc/searchbar2.asp"--></td>
     </tr>
 </table>
 </div>

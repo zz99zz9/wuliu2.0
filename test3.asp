@@ -11,12 +11,12 @@ set rs=server.createobject("adodb.recordset")
     if isNumeric(rs("Rev_Exhid")) then
         set srs=server.createobject("adodb.recordset")
         ssql="select * from Exhibition where Exh_id="&rs("Rev_Exhid")
-        response.write ssql&"<br>"
+        '   response.write ssql&"<br>"
         srs.open ssql,conn,3,3
         wtime=srs("w_time")
 
     rs("w_time")=wtime
-   ' response.write wtime&"<br>"
+   response.write wtime&"<br>"
     i=i+1
      rs.update
      end if

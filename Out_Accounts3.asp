@@ -58,11 +58,16 @@ table td {
     <% Server.ScriptTimeOut=950 %>
    <%  
 '开始分页
-
+s_time=FormatNumber(request.cookies("S_year")&"."&request.cookies("S_moon"),2,False,False,False)
+e_time=FormatNumber(request.cookies("E_year")&"."&request.cookies("E_moon"),2,False,False,False)
+sql1="where w_time>="&s_time&" and w_time<="&e_time&""
+if request.cookies("Sup_id")<>"0" then
+  sql1=sql1+" and Supid="&request.cookies("Sup_id")
+end if
 
 '打开数据库  
 set rs=server.createobject("adodb.recordset")
-sql="select * from Revenue order by Rev_id desc"
+sql="select * from Revenue "&sql1&" order by Rev_id desc"
 rs.PageSize = 10000 '这里设定每页显示的记录数
 rs.CursorLocation = 3
 

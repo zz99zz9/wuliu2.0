@@ -4,7 +4,7 @@
 dim wtime
 set rs=server.createobject("adodb.recordset")
 'del top 500
-  sql="select top 500 * from Expense order by Exp_id desc"
+  sql="select * from Expense order by Exp_id desc"
    rs.open sql,conn,3,3
  do while not rs.eof 
     '读取年月写入wtime
@@ -16,7 +16,7 @@ set rs=server.createobject("adodb.recordset")
         wtime=srs("w_time")
 
     rs("w_time")=wtime
-   ' response.write wtime&"<br>"
+    response.write wtime&"<br>"
     i=i+1
      rs.update
      end if
