@@ -7,7 +7,7 @@
     <td width="60" align="center"><a href="#" onClick="javascript:HiddenDiv('sradd2')"><img src="images/l4.gif" width="36" height="26" /></a></td>
     <td width="5"><img src="images/lll.gif" width="2" height="37" /></td>-->
     <td width="60" align="center"><a href="Out_Accounts3.asp?<%=urlload%>" target="_blank"><img src="images/l3.gif" width="36" height="33" /></a></td>
-    <td height="60">&nbsp;</td>
+    <td height="60"><!--#include virtual="inc/searchbar.asp"--></td>
     </tr>
 </table>
 </div>
@@ -34,9 +34,13 @@
 
 '打开数据库  
 set rs=server.createobject("adodb.recordset")
+if search="yes" then
+sql="select * from Revenue "&sql1&" order by Rev_id desc"
+else
 sql="select top 30 * from Revenue order by Rev_id desc"
-rs.PageSize = 10000 '这里设定每页显示的记录数
-rs.CursorLocation = 3
+end if
+
+
 
 rs.open sql,conn,3,3
 if err.number<>0 then
@@ -45,29 +49,7 @@ if err.number<>0 then
 				if rs.eof And rs.bof then
        				Response.Write "<p align='center' > 对不起，没有查询到您需要的信息！</p>"
    				else
-	  				pre = true
-last = true
-page = trim(Request.QueryString("page"))
 
-if len(page) = 0 then
-intpage = 1
-pre = false
-else
-if cint(page) =< 1 then
-intpage = 1
-pre = false
-else
-if cint(page) >= rs.PageCount then
-intpage = rs.PageCount
-last = false
-else
-intpage = cint(page)
-end if
-end if
-end if
-if not rs.eof then
-rs.AbsolutePage = intpage
-end if 
 do while not rs.eof
 if rs("Rev_amount2")<>rs("Rev_amount1") then
 %> 

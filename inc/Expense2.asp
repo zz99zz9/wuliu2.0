@@ -7,7 +7,7 @@
     <td width="60" align="center"><a href="#" onClick="javascript:HiddenDiv('sradd2')"><img src="images/l4.gif" width="36" height="26" /></a></td>
     <td width="5"><img src="images/lll.gif" width="2" height="37" /></td>-->
     <td width="60" align="center"><a href="Out_Accounts2.asp?<%=urlload%>" target="_blank"><img src="images/l3.gif" width="36" height="33" /></a></td>
-    <td height="60">&nbsp;</td>
+    <td height="60"><!--#include virtual="inc/searchbar.asp"--></td>
     </tr>
 </table>
 </div>
@@ -34,7 +34,12 @@
 
 '打开数据库  
 set rs=server.createobject("adodb.recordset")
+
+if search="yes" then
+sql="select * from Expense "&sql1&" order by Exp_id desc"
+else
 sql="select * from Expense order by Exp_id desc"
+end if
 rs.PageSize = 10000 '这里设定每页显示的记录数
 rs.CursorLocation = 3
 
