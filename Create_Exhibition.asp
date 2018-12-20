@@ -14,7 +14,12 @@ Exh_mark=request("Exh_mark")
 Exh_year=request("Exh_year")
 Exh_moon=request("Exh_moon")
 Exh_f=request("Exh_f")
-w_time=Exh_year&"."&Exh_moon
+if Exh_moon<10 then
+    w_time=Exh_year&".0"&Exh_moon
+    else
+    w_time=Exh_year&"."&Exh_moon
+    end if
+
 if Exh_f="" then Exh_f=0
 
 if act="add" then
