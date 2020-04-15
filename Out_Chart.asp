@@ -44,7 +44,7 @@ table td {
 <%Response.AddHeader "content-disposition","attachment;filename="&request.cookies("S_year")&"年"&request.cookies("S_moon")&"月到"&request.cookies("E_year")&"年"&request.cookies("E_moon")&"月业务一览表.xls"%>
 <table width="980" border="0" cellspacing="1" cellpadding="0" class="datalist">
     <tr>
-      <th height="30" colspan="9"><%=request.cookies("S_year")%>年<%=request.cookies("S_moon")%>月-<%=request.cookies("E_year")%>年<%=request.cookies("E_moon")%>月 业务一览表</th>
+      <th height="30" colspan="11"><%=request.cookies("S_year")%>年<%=request.cookies("S_moon")%>月-<%=request.cookies("E_year")%>年<%=request.cookies("E_moon")%>月 业务一览表</th>
     </tr>
     <tr>
 	  <th>ID</th>
@@ -52,7 +52,8 @@ table td {
       <th>展会名称</th>
       <th>项目主管</th>
       <th>应收</th>
-      <th>已收</th>
+	  <th>已收</th>
+	  <th>应付</th>
       <th>已付</th>
       <th>预计利润</th>
       <th>目前利润</th>
@@ -116,7 +117,7 @@ i=i+1
       <td><%call Revenue_sum1(int(rs("Exh_id")))%></td>
 <td><%call Revenue_sum2(int(rs("Exh_id")))%></td>
 <td><%call Expense_sum1(int(rs("Exh_id")))%></td>
-
+<td><%call Expense_sum2(int(rs("Exh_id")))%></td>
       <td><%call yjlr(int(rs("Exh_id")))%></td>
      <td><%call mqlr(int(rs("Exh_id")))%></td>
 <td><%call wsk(int(rs("Exh_id")))%></td>
